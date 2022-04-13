@@ -159,6 +159,9 @@
   <data name="NumPlus" xml:space="preserve">
     <value>+</value>
   </data>
+  <data name="NumReset" xml:space="preserve">
+    <value>Res</value>
+  </data>
   <data name="NumResult" xml:space="preserve">
     <value>=</value>
   </data>

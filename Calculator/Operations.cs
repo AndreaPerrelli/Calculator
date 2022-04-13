@@ -4,35 +4,70 @@ namespace Calculator
     internal class Operations
     {
 
-        public static int Sum (List<int> numberList)
+        public static double defaultValue = 0;
+        public const string plusOperation = "+";
+        public const string minusOperation = "-";
+        public const string orOperation = "*";
+        public const string equalOperation = "/";
+
+        public static double Sum (List<int> numberList)
         {
-            int sum = 0;
+            double sum = 0;
             foreach (var number in numberList)
             {
                 sum += number;
             }
             return sum;
         }
-        public static int Subtract(List<int> numberList)
+        public static double Subtract(List<int> numberList)
         {
-            int subtract = 0;
-            int substractTmp;
+            double subtract = 0;
+            byte index = 0;
             foreach (var number in numberList)
             {
-                substractTmp = number;
+                if(index == 0)
+                {
+                    subtract = number;
+                    index++;
+                    continue;
+                }
+                if(index > 0)
+                {
+                    subtract -= number;
+                }
 
             }
             return subtract;
         }
 
-        public static int Multiplication(List<int> numberList)
+        public static double Multiplication(List<int> numberList)
         {
-            int multiplication = 1;
+            double multiplication = 1;
             foreach (var number in numberList)
             {
                 multiplication *= number;
             }
             return multiplication;
+        }
+
+        public static double Division(List<int> numberList)
+        {
+            double division = 1;
+            byte index = 0;
+            foreach (var number in numberList)
+            {
+                if (index == 0)
+                {
+                    division = number;
+                    index++;
+                    continue;
+                }
+                if (index > 0)
+                {
+                    division /= number;
+                }
+            }
+            return division;
         }
     }
 }

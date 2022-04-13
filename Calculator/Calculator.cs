@@ -16,7 +16,7 @@ namespace Calculator
         private int inputTotalNumber;
         private List<string> inputNumberList;
         private string inputNumber;
-        private int result;
+        private double result;
         private string operation;
         private List<int> calculateNumberList;
         public Calculator()
@@ -37,117 +37,135 @@ namespace Calculator
 
         private void Num1_Click(object sender, EventArgs e)
         {
-            ChangeInputText(inputNumber, button1);
+            inputNumber = ChangeInputText(inputNumber, button1);
 
         }
 
         private void Num2_Click(object sender, EventArgs e)
         {
-            ChangeInputText(inputNumber, button2);
+            inputNumber = ChangeInputText(inputNumber, button2);
         }
 
         private void Num3_Click(object sender, EventArgs e)
         {
-            ChangeInputText(inputNumber, button3);
+            inputNumber = ChangeInputText(inputNumber, button3);
         }
 
         private void Num4_Click(object sender, EventArgs e)
         {
-            ChangeInputText(inputNumber, button4);
+            inputNumber = ChangeInputText(inputNumber, button4);
         }
 
         private void Num0_Click(object sender, EventArgs e)
         {
-            ChangeInputText(inputNumber, button12);
+            inputNumber = ChangeInputText(inputNumber, button12);
         }
 
         private void Num5_Click(object sender, EventArgs e)
         {
-            ChangeInputText(inputNumber, button5);
+            inputNumber = ChangeInputText(inputNumber, button5);
         }
 
         private void Num6_Click(object sender, EventArgs e)
         {
-            ChangeInputText(inputNumber, button6);
+            inputNumber = ChangeInputText(inputNumber, button6);
         }
 
         private void Num7_Click(object sender, EventArgs e)
         {
-            ChangeInputText(inputNumber, button7);
+            inputNumber = ChangeInputText(inputNumber, button7);
         }
 
         private void Num8_Click(object sender, EventArgs e)
         {
-            ChangeInputText(inputNumber, button8);
+            inputNumber = ChangeInputText(inputNumber, button8);
         }
 
         private void Num9_Click(object sender, EventArgs e)
         {
-            ChangeInputText(inputNumber, button9);
+            inputNumber = ChangeInputText(inputNumber, button9);
         }
 
         private void NumPlus_Click(object sender, EventArgs e)
         {
-            operation = "+";
-            (inputNumberList, inputNumber) = FillTotalInput(inputNumberList, inputNumber);
+            (inputNumberList, inputNumber) = ProcessOperations(Operations.plusOperation);
         }
 
         private void NumMinus_Click(object sender, EventArgs e)
         {
-            operation = "-";
-            (inputNumberList, inputNumber) = FillTotalInput(inputNumberList, inputNumber);
+            (inputNumberList, inputNumber) = ProcessOperations(Operations.minusOperation);
         }
 
         private void NumDivision_Click(object sender, EventArgs e)
         {
-            operation = "/";
-            (inputNumberList, inputNumber) = FillTotalInput(inputNumberList, inputNumber);
+            (inputNumberList, inputNumber) = ProcessOperations(Operations.equalOperation);
         }
 
         private void NumMultiplication_Click(object sender, EventArgs e)
         {
-            operation = "*";
-            (inputNumberList, inputNumber) = FillTotalInput(inputNumberList, inputNumber);
+            (inputNumberList, inputNumber) = ProcessOperations(Operations.orOperation);
         }
 
         private void NumResult_Click(object sender, EventArgs e)
         {
-            calculateNumberList = ConvertToListInt(inputNumberList);
-            result = MakeOperation(operation, calculateNumberList);
+            (inputNumberList, inputNumber) = FillTotalInput(inputNumberList, inputNumber);
+            ProcessResult();
         }
 
-        private void ChangeInputText(string number, Button button)
+        private void NumReset_Click(object sender, EventArgs e)
+        {
+            label1.Text = "0";
+            InitializeInternalComponents();
+        }
+
+
+        private string ChangeInputText(string number, Button button)
         {
             number += button.Text;
-            label1.Text = inputNumber;
+            label1.Text = number;
+            return number;
         }
 
         private (List<string>, string) FillTotalInput(List<string> numberList, string number)
         {
-            numberList.Append(inputNumber);
+            numberList.Add(number);
             number = "";
 
             return (numberList, number);
         }
 
-        private int MakeOperation(string operation, List<int> numberList) {
-            int result;
+        private (List<string>, string) ProcessOperations(string operation)
+        {
+            this.operation = operation;
+            return (_, _) = FillTotalInput(inputNumberList, inputNumber);
+        }
+
+        private void ProcessResult()
+        {
+            calculateNumberList = ConvertToListInt(inputNumberList);
+            result = MakeOperation(operation, calculateNumberList);
+            label1.Text = result.ToString();
+            InitializeInternalComponents();
+        }
+
+        private double MakeOperation(string operation, List<int> numberList) {
+            double result;
             switch (operation)
             {
                 case "+":
-                    Operations.Sum(numberList);
+                    result = Operations.Sum(numberList);
                     break;
                 case "-":
-                    Operations.Subtract();
+                    result = Operations.Subtract(numberList);
                     break;
                 case "*":
-                    Operations.Multiplication();
+                    result = Operations.Multiplication(numberList);
                     break;
                 case "/":
-                    Operations.Division();
+                    result = Operations.Division(numberList);
                     break;
                 default:
-                    Operations.defaultValue;
+                    result = Operations.defaultValue;
                     break;
             }
             return result;
@@ -161,9 +179,9 @@ namespace Calculator
             foreach (var inputNumber in inputNumbers)
             {
                 if (int.TryParse(inputNumber, out number))
-                    result.Append(number);
+                    result.Add(number);
                 else
-                    result.Append(defaultValue);
+                    result.Add(defaultValue);
             }
             return result;
         }
@@ -177,6 +195,7 @@ namespace Calculator
             inputNumber = "";
             operation = "";
             inputNumberList = new List<string>();
+            calculateNumberList = new List<int>();
         }
 
     }

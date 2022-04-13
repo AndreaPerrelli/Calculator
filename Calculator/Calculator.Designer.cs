@@ -148,7 +148,7 @@ namespace Calculator
             this.button10.TabIndex = 9;
             this.button10.Text = global::Calculator.Properties.Resources.NumPlus;
             this.button10.UseVisualStyleBackColor = true;
-            this.button10.Click += new System.EventHandler(this.NumMultiplication_Click);
+            this.button10.Click += new System.EventHandler(this.NumPlus_Click);
             // 
             // button11
             // 
@@ -206,8 +206,10 @@ namespace Calculator
             this.button16.Name = "button16";
             this.button16.Size = new System.Drawing.Size(36, 23);
             this.button16.TabIndex = 15;
+            this.button16.Text = global::Calculator.Properties.Resources.NumReset;
             this.button16.Text = "button16";
             this.button16.UseVisualStyleBackColor = true;
+            this.button16.Click += new System.EventHandler(this.NumReset_Click);
             // 
             // label1
             // 

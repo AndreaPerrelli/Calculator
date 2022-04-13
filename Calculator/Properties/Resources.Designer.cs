@@ -187,6 +187,15 @@ namespace Calculator.Properties {
         }
         
         /// <summary>
+        ///   Cerca una stringa localizzata simile a Res.
+        /// </summary>
+        internal static string NumReset {
+            get {
+                return ResourceManager.GetString("NumReset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Cerca una stringa localizzata simile a =.
         /// </summary>
         internal static string NumResult {
